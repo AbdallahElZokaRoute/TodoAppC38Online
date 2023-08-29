@@ -11,13 +11,12 @@ class TodoModel(
     @ColumnInfo(name = "ID")
     val id: Int? = null,
     @ColumnInfo
-    val title: String? = null,
+    var title: String? = null,
     @ColumnInfo
-    val description: String? = null,
+    var description: String? = null,
     @ColumnInfo
-    val isDone: Boolean? = false,
+    var isDone: Boolean? = false,
     @ColumnInfo
     val time: Date? = null,
 
-
-    )
+):java.io.Serializable
