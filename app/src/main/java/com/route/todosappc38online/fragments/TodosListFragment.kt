@@ -19,6 +19,7 @@ import com.route.todosappc38online.EditActivity
 import com.route.todosappc38online.R
 import com.route.todosappc38online.adapters.DayViewHolder
 import com.route.todosappc38online.adapters.OnItemClicked
+import com.route.todosappc38online.adapters.OnItemDeleteClick
 import com.route.todosappc38online.adapters.TodosListAdapter
 import com.route.todosappc38online.base.BaseFragment
 import com.route.todosappc38online.clearTime
@@ -137,7 +138,13 @@ class TodosListFragment : BaseFragment() {
 
         }
 
+        //on click delete
+        adapter.onItemDeleteClick = object : OnItemDeleteClick {
+            override fun onItemDeleteClick(position: Int, task: TodoModel) {
+                deleteTask(task)
+            }
 
+        }
 
     }
 
@@ -152,6 +159,22 @@ class TodosListFragment : BaseFragment() {
         //send task by data base > to show data and edit it
         intent.putExtra(constant.Task, todoModel)
         startActivity(intent)
+    }
+
+    private fun deleteTask(todoModel: TodoModel) {
+        showMessage("Are you want to delete this task !!",
+            posActionTitle = "yes",
+            posAction = { dialog, _ ->
+                dialog.dismiss()
+                TodoDatabase.getInstance(requireContext()).getTodosDao().deleteTodo(todoModel)
+                refreshRecyclerView()
+            },
+            negActionTitle = "no",
+            negAction = { dialog, _ ->
+                dialog.dismiss()
+            }
+        )
+
     }
 
     private fun makeDone(todoModel: TodoModel) {

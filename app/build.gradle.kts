@@ -64,4 +64,9 @@ dependencies {
     // Support Libraries
 
     // AndroidX libraries
+
+    //swipe
+    implementation ("com.github.zerobranch:SwipeLayout:1.3.1")
+
+//    implementation ("com.github.User:Repo:Tag")
 }
