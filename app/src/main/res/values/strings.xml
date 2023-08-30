@@ -6,6 +6,8 @@
     <string name="select_time">Select Time :</string>
     <string name="add">Add</string>
     <string name="title_required">Title Required</string>
+    <string name="enter_task_name">Enter Task Name</string>
+    <string name="enter_task_description">Enter task description</string>
     <string-array name="languages">
         <item>Select Language</item>
         <item>English</item>

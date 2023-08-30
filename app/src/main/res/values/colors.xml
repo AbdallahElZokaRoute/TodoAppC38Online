@@ -7,4 +7,5 @@
     <color name="grey">#363636</color>
     <color name="colorBlack">#060E1E</color>
     <color name="colorCardBg">#F44336</color>
+    <color name="transparent">#00F44336</color>
 </resources>
