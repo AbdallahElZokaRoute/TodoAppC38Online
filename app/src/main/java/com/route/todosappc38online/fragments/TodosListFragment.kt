@@ -1,6 +1,7 @@
 package com.route.todosappc38online.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.base.BaseFragment
+import com.example.todoapp.ui.CONSTANTS
+import com.example.todoapp.ui.EditActivity
+import com.google.android.material.snackbar.Snackbar
 import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.core.atStartOfMonth
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
@@ -19,6 +24,8 @@ import com.route.todosappc38online.adapters.DayViewHolder
 import com.route.todosappc38online.adapters.TodosListAdapter
 import com.route.todosappc38online.clearTime
 import com.route.todosappc38online.database.TodoDatabase
+import com.route.todosappc38online.database.model.TodoModel
+import com.zerobranch.layout.SwipeLayout
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.TextStyle
@@ -26,7 +33,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class TodosListFragment : Fragment() {
+class TodosListFragment : BaseFragment() {
 
     lateinit var todosRecyclerView: RecyclerView
     lateinit var adapter: TodosListAdapter
@@ -111,6 +118,51 @@ class TodosListFragment : Fragment() {
         val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
         calendarView.setup(startDate, endDate, firstDayOfWeek)
         calendarView.scrollToWeek(currentDate)
+        adapter.onItemLongClick =
+            TodosListAdapter.OnItemLongClick { todo ->
+                showMessage(
+                    "what do you want ?",
+                    "Update",
+                    { _, dialog -> updateTask(todo) },
+                    "",
+                )
+            }
+    }
+    fun updateTask(todo: TodoModel) {
+        var intent = Intent(requireContext(), EditActivity::class.java)
+        intent.putExtra(CONSTANTS.TASK, todo)
+        startActivity(intent)
+    }
+
+    private fun onTaskDone() {
+        adapter.onTaskDone = TodosListAdapter.OnTaskDone {
+            it.isDone = true
+            TodoDatabase.getInstance(requireContext()).getTodosDao().updateTodo(it)
+            getDataFromDatabase()
+        }
+    }
+
+    private fun swipeToDelete() {
+        adapter.onItemDeleteClick =
+            TodosListAdapter.OnItemDeleteClick { todo, position ->
+                if (SwipeLayout(requireContext(), null).isEnabled) {
+                    TodoDatabase.getInstance(requireContext())
+                        .getTodosDao()
+                        .deleteTodo(todo)
+                    Snackbar.make(
+                        todosRecyclerView,
+                        "Task deleted successfully",
+                        Snackbar.LENGTH_LONG
+                    ).setAction("Undo") {
+                        TodoDatabase.getInstance(requireContext())
+                            .getTodosDao()
+                            .insertTodo(todo)
+                        getDataFromDatabase()
+                    }.show()
+                    adapter.deleteItem(position)
+                } else return@OnItemDeleteClick
+            }
+
     }
 
     fun getTodosByDate(selectedDate: Date?) {
@@ -126,5 +178,10 @@ class TodosListFragment : Fragment() {
                 .getAllTodos()
         adapter.updateData(todosList)
 
+    }
+    fun getDataFromDatabase() {
+        val todoList =
+            TodoDatabase.getInstance(requireContext()).getTodosDao().getAllTodos().toMutableList()
+        adapter.updateData(todoList)
     }
 }

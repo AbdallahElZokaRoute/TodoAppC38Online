@@ -35,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -57,7 +60,5 @@ dependencies {
     // KSP (Kotlin Scripting Language) Kotlin
 
     implementation("com.kizitonwose.calendar:view:2.3.0")
-    // Support Libraries
-
-    // AndroidX libraries
+    implementation ("com.github.zerobranch:SwipeLayout:1.3.1")
 }
