@@ -5,28 +5,25 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.route.todosappc38online.database.model.TodoModel
+import com.route.todosappc38online.database.model.Task
 import java.util.Date
 
 //Data Access Object
 @Dao
 interface TodoDao {
     @Insert
-    fun insertTodo(todo: TodoModel)
+    fun insertTodo(todo: Task)
 
     @Delete
-    fun deleteTodo(todo: TodoModel)
+    fun deleteTodo(todo: Task)
 
     @Update
-    fun updateTodo(todo: TodoModel)
+    fun updateTodo(todo: Task)
 
     @Query("SELECT * FROM todo_table")
-    fun getAllTodos(): List<TodoModel>
+    fun getAllTodos(): MutableList<Task>
 
-    // Column   Parameter of function
 
-    // 1335085190
-    @Query("SELECT * FROM todo_table WHERE time = :time")
-    fun getTodosByDate(time: Date): List<TodoModel>
-    // 1335085200
+    @Query("SELECT * FROM todo_table WHERE date = :time")
+    fun getTodosByDate(time: Long): List<Task>
 }
