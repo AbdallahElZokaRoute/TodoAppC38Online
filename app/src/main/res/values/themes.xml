@@ -3,6 +3,7 @@
     <style name="Base.Theme.TodosAppC38Online" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
 <!--         <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:colorPrimaryDark">@color/blue</item>
     </style>
 
     <style name="Theme.TodosAppC38Online" parent="Base.Theme.TodosAppC38Online" />
@@ -23,4 +24,37 @@
     <style name="day_text_color">
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="home_bg">
+        <item name="android:background">@color/lightGreen</item>
+    </style>
+    <style name="bottom_navigation_view_bg" parent="Widget.MaterialComponents.BottomAppBar">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+    <style name="floating_bg">
+        <item name="android:backgroundTint">@color/blue</item>
+    </style>
+    <style name="bottom_sheet_bg">
+        <item name="android:background">@color/white</item>
+
+    </style>
+    <style name="card_day_bg">
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="txt_day_style">
+        <item name="android:textColor">@color/txt_day_color</item>
+    </style>
+    <style name="spinner_bg">
+        <item name="android:background">@drawable/spinner_bg</item>
+    </style>
+    <style name="toolbar_bg">
+        <item name="android:background">@color/blue</item>
+    </style>
+    <style name="toolbar_title_color">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="edit_task_bg_tint">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
 </resources>

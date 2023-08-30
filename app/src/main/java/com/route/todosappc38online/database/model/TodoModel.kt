@@ -3,6 +3,7 @@ package com.route.todosappc38online.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 import java.util.Date
 
 @Entity(tableName = "todo_table")
@@ -11,13 +12,13 @@ class TodoModel(
     @ColumnInfo(name = "ID")
     val id: Int? = null,
     @ColumnInfo
-    val title: String? = null,
+    var title: String? = null,
     @ColumnInfo
-    val description: String? = null,
+    var description: String? = null,
     @ColumnInfo
-    val isDone: Boolean? = false,
+    var isDone: Boolean? = false,
     @ColumnInfo
-    val time: Date? = null,
+    var time: Date? = null,
 
 
-    )
+    ):Serializable

@@ -12,6 +12,8 @@ import com.route.todosappc38online.database.model.TodoModel
 
 class TodosListAdapter(private var todosList: List<TodoModel>? = null) :
     Adapter<TodosListAdapter.TodosListViewHolder>() {
+    var onTaskClickListener:OnTaskClickListener?=null
+
     /*
     1- Swipe to delete
     2- Edit To task
@@ -35,6 +37,10 @@ class TodosListAdapter(private var todosList: List<TodoModel>? = null) :
         val item = todosList?.get(position)
         holder.time.text = item?.time.toString()
         holder.title.text = item?.title
+        holder.view.setOnLongClickListener {
+            onTaskClickListener?.onTaskClick(item!!,position)
+            return@setOnLongClickListener true
+        }
 
     }
 
@@ -44,5 +50,8 @@ class TodosListAdapter(private var todosList: List<TodoModel>? = null) :
         val checkImage: ImageView = view.findViewById(R.id.todo_check)
     }
 
+    interface OnTaskClickListener {
+        fun onTaskClick(task:TodoModel,position:Int)
+    }
 
 }
