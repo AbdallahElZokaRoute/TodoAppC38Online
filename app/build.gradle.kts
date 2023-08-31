@@ -64,4 +64,6 @@ dependencies {
     // Support Libraries
 
     // AndroidX libraries
+    //swipeLayout
+    implementation("com.github.zerobranch:SwipeLayout:1.3.1")
 }

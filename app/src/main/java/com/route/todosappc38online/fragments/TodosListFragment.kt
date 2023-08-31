@@ -59,10 +59,24 @@ class TodosListFragment : Fragment() {
 
             }
 
+            override fun onDoneClick(task: TodoModel, position: Int) {
+                task.isDone=true
+                TodoDatabase.getInstance(requireContext()).getTodosDao().updateTodo(task)
+                var taskList=TodoDatabase.getInstance(requireContext()).getTodosDao().getAllTodos()
+                adapter.updateData(taskList.toMutableList())
+
+            }
+        }
+        adapter.onItemDeleteClickListener=object :TodosListAdapter.OnItemDeleteClickListener{
+            override fun onItemDeleteClick(task: TodoModel, position: Int) {
+                TodoDatabase.getInstance(requireContext()).getTodosDao().deleteTodo(task)
+                adapter.taskDelete(task)
+            }
+
         }
         todosRecyclerView.adapter = adapter
         val items = TodoDatabase.getInstance(requireContext()).getTodosDao().getAllTodos()
-        adapter.updateData(items)
+        adapter.updateData(items.toMutableList())
         calendarView = view.findViewById(R.id.calendar_view)
 
         calendarView.dayBinder = object : WeekDayBinder<DayViewHolder> {
@@ -150,7 +164,7 @@ class TodosListFragment : Fragment() {
                 .getInstance(requireContext())
                 .getTodosDao()
                 .getAllTodos()
-        adapter.updateData(todosList)
+        adapter.updateData(todosList.toMutableList())
 
     }
 }
