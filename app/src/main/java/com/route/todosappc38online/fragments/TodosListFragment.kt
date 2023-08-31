@@ -1,6 +1,7 @@
 package com.route.todosappc38online.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,11 +15,13 @@ import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.CalendarView
 import com.kizitonwose.calendar.view.WeekCalendarView
 import com.kizitonwose.calendar.view.WeekDayBinder
+import com.route.todosappc38online.EditTaskActivity
 import com.route.todosappc38online.R
 import com.route.todosappc38online.adapters.DayViewHolder
 import com.route.todosappc38online.adapters.TodosListAdapter
 import com.route.todosappc38online.clearTime
 import com.route.todosappc38online.database.TodoDatabase
+import com.route.todosappc38online.database.model.TodoModel
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.TextStyle
@@ -48,9 +51,32 @@ class TodosListFragment : Fragment() {
         todosRecyclerView = view.findViewById(R.id.todos_recycler_view)
         calendar = Calendar.getInstance()
         adapter = TodosListAdapter(null)
+        adapter.onTaskClickListener=object :TodosListAdapter.OnTaskClickListener{
+            override fun onTaskClick(task: TodoModel, position: Int) {
+                var intent = Intent(requireContext(),EditTaskActivity::class.java)
+                intent.putExtra("Task",task)
+                startActivity(intent)
+
+            }
+
+            override fun onDoneClick(task: TodoModel, position: Int) {
+                task.isDone=true
+                TodoDatabase.getInstance(requireContext()).getTodosDao().updateTodo(task)
+                var taskList=TodoDatabase.getInstance(requireContext()).getTodosDao().getAllTodos()
+                adapter.updateData(taskList.toMutableList())
+
+            }
+        }
+        adapter.onItemDeleteClickListener=object :TodosListAdapter.OnItemDeleteClickListener{
+            override fun onItemDeleteClick(task: TodoModel, position: Int) {
+                TodoDatabase.getInstance(requireContext()).getTodosDao().deleteTodo(task)
+                adapter.taskDelete(task)
+            }
+
+        }
         todosRecyclerView.adapter = adapter
         val items = TodoDatabase.getInstance(requireContext()).getTodosDao().getAllTodos()
-        adapter.updateData(items)
+        adapter.updateData(items.toMutableList())
         calendarView = view.findViewById(R.id.calendar_view)
 
         calendarView.dayBinder = object : WeekDayBinder<DayViewHolder> {
@@ -70,6 +96,18 @@ class TodosListFragment : Fragment() {
                 val currentSelection = selectedDate
                 container.calendarDayView.setOnClickListener {
                     //   20                20
+                   /* if (currentSelection == data.date) {
+                        selectedDate = null
+                        getTodosByDate(null)
+                        calendarView.notifyDateChanged(currentSelection)
+                    } else {
+                        selectedDate = data.date
+                        calendarView.notifyDateChanged(data.date)
+                        if (currentSelection != null) {
+                            calendarView.notifyDateChanged(currentSelection)
+                        }
+                    }*/
+                    val currentSelection = selectedDate
                     if (currentSelection == data.date) {
                         selectedDate = null
                         getTodosByDate(null)
@@ -78,6 +116,8 @@ class TodosListFragment : Fragment() {
                         selectedDate = data.date
                         calendarView.notifyDateChanged(data.date)
                         if (currentSelection != null) {
+                            // We need to also reload the previously selected
+                            // date so we can REMOVE the selection background.
                             calendarView.notifyDateChanged(currentSelection)
                         }
                     }
@@ -124,7 +164,7 @@ class TodosListFragment : Fragment() {
                 .getInstance(requireContext())
                 .getTodosDao()
                 .getAllTodos()
-        adapter.updateData(todosList)
+        adapter.updateData(todosList.toMutableList())
 
     }
 }

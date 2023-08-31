@@ -35,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -60,4 +64,6 @@ dependencies {
     // Support Libraries
 
     // AndroidX libraries
+    //swipeLayout
+    implementation("com.github.zerobranch:SwipeLayout:1.3.1")
 }

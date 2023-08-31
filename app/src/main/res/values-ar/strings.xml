@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TodosAppC38Online</string>
-
+    <string name="app_toolbar_name">To Do List</string>
+    <string name="language">اللغه</string>
+    <string name="mode">مود</string>
+    <string name="settings">الاعدادات</string>
+    <string name="to_do_list">عمل فائمه من المهام </string>
+    <string name="edit_task">Edit Task</string>
+    <string name="save_change">Save Change</string>
     <string-array name="languages">
-        <item>إختار اللغة</item>
-        <item>اللغة الإنجليزية</item>
-        <item>اللغة العربية</item>
+        <item>اختار اللغة</item>
+        <item>اللغه الانجليزيه</item>
+        <item>اللغه العربيه</item>
     </string-array>
     <string-array name="mode">
-        <item>برجاء إختيار الوضع المضئ / الليلي</item>
-        <item>الوضع المضئ</item>
-        <item>الوضع الليلي</item>
+        <item>حدد الوضع مضئ / مظلم</item>
+        <item>وضع المضئ</item>
+        <item>وضع المظلم</item>
     </string-array>
 </resources>
