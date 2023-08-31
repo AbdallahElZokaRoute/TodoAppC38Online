@@ -11,17 +11,20 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import com.route.todosappc38online.R
+import com.route.todosappc38online.databinding.FragmentSettingsBinding
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
     lateinit var languageSpinner: Spinner
     lateinit var modeSpinner: Spinner
+    lateinit var binding : FragmentSettingsBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        binding = FragmentSettingsBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

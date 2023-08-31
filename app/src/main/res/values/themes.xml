@@ -1,8 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.TodosAppC38Online" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-<!--         <item name="colorPrimary">@color/my_light_primary</item> -->
+
+         <item name="colorPrimary">@color/lightPrimary</item>
+         <item name="colorPrimaryDark">@color/lightPrimary</item>
+         <item name="colorPrimaryVariant">@color/lightPrimaryDark</item>
+         <item name="colorOnPrimary">@color/white</item>
+
+
+        <item name="colorSecondary">@color/lightSecondPrimary</item>
+        <item name="colorSecondaryVariant">@color/lightPrimaryDark</item>
+        <item name="colorOnSecondary">@color/white</item>
+
     </style>
 
     <style name="Theme.TodosAppC38Online" parent="Base.Theme.TodosAppC38Online" />
@@ -22,5 +31,9 @@
 
     <style name="day_text_color">
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="splash_bg">
+        <item name="backgroundColor">@color/lightGreen</item>
     </style>
 </resources>

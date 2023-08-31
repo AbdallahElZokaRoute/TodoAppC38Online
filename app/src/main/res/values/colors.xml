@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="lightPrimary">#5D9CEC</color>
+    <color name="lightPrimaryDark">#1F4C85</color>
+    <color name="lightSecondPrimary">#5D9CEC</color>
+    <color name="lightSecondDark">#1F4C85</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lightGreen">#DFECDB</color>
     <color name="blue">#5D9CEC</color>
-    <color name="grey">#363636</color>
+    <color name="grey">#515050</color>
     <color name="colorBlack">#060E1E</color>
+    <color name="cardColorDark">#141922</color>
     <color name="colorCardBg">#F44336</color>
+    <color name="delete_bg">#ff5722</color>
+    <color name="done_green">#61E757</color>
 </resources>
